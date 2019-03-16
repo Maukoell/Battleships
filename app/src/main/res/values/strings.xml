@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Battleships</string>
+    <string name="PlayActivityLabel">PlayActivity</string>
+    <string name="settingsButtonName">Settings</string>
+    <string name="playButtonName">Play</string>
+    <string name="battleshipsTextName">Battleships</string>
+</resources>
