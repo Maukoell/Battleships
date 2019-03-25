@@ -4,4 +4,8 @@
     <string name="settingsButtonName">Settings</string>
     <string name="playButtonName">Play</string>
     <string name="battleshipsTextName">Battleships</string>
+
+    <string name="title_activity_waiting">WaitingActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

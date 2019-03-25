@@ -2,29 +2,28 @@ package com.mauricio.battleships;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
-import java.nio.file.Files;
 
 public class PlayActivity extends AppCompatActivity {
     private TextView pt;
     private Context ct;
+    private String myIp;
+
 
 
     @Override
@@ -32,20 +31,29 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         ct = this;
-        Button getIPButton = findViewById(R.id.getIPButton);
-        getIPButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setIPOfTextView();
-            }
-        });
         pt = findViewById(R.id.ipField);
         setIPOfTextView();
+        Button b3 = findViewById(R.id.playButton3);
+        Thread listeningThread = new Thread(new ListenForConnection(this));
+        listeningThread.start();
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tv = findViewById(R.id.opponentIpField);
+                Thread sendingThread = new Thread(new SendForConnection(myIp, tv.getText().toString()));
+                sendingThread.start();
+            }
+        });
+    }
 
-
+    public void launchWaitingActivity() {
+        Intent intent = new Intent(ct, WaitingActivity.class);
+        startActivity(intent);
     }
 
     protected void setIPOfTextView() {
-        pt.setText(wifiIpAddress(ct));
+        myIp = wifiIpAddress(ct);
+        pt.setText(myIp);
     }
 
     protected String wifiIpAddress(Context context) {
