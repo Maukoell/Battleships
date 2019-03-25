@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WinningActivity">
+    tools:context=".EndActivity">
 
     <Button
         android:id="@+id/againButton"
@@ -39,12 +39,13 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/wonText"
+        android:id="@+id/endText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:layout_marginBottom="237dp"
-        android:text="You Won"
+        android:text="You end"
+        android:textAlignment="center"
         android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/againButton"
         app:layout_constraintEnd_toEndOf="parent"

@@ -5,17 +5,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-public class WinningActivity extends AppCompatActivity {
+public class EndActivity extends AppCompatActivity {
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_winning);
+        setContentView(R.layout.activity_end);
         Button againButton = findViewById(R.id.againButton);
         Button menuButton = findViewById(R.id.menuButton);
+        String text = getIntent().getStringExtra("result");
+        TextView tv = findViewById(R.id.endText);
+        tv.setText(text);
         againButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

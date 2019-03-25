@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/playButton3"
+        android:id="@+id/connectButton"
         style="@android:style/Widget.Button"
         android:layout_width="165dp"
         android:layout_height="67dp"

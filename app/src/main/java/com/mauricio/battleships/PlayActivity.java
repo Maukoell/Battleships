@@ -24,8 +24,6 @@ public class PlayActivity extends AppCompatActivity {
     private Context ct;
     private String myIp;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +31,7 @@ public class PlayActivity extends AppCompatActivity {
         ct = this;
         pt = findViewById(R.id.ipField);
         setIPOfTextView();
-        Button b3 = findViewById(R.id.playButton3);
+        Button b3 = findViewById(R.id.connectButton);
         Thread listeningThread = new Thread(new ListenForConnection(this));
         listeningThread.start();
         b3.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +46,7 @@ public class PlayActivity extends AppCompatActivity {
 
     public void launchWaitingActivity() {
         Intent intent = new Intent(ct, WaitingActivity.class);
+        intent.putExtra("ipAddress", myIp);
         startActivity(intent);
     }
 
