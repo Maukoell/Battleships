@@ -14,16 +14,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
+
+import static java.lang.System.out;
 
 public class PlayActivity extends AppCompatActivity {
     private TextView pt;
     private Context ct;
     private String myIp;
-
+    private static final String TAG = "PlayActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +39,23 @@ public class PlayActivity extends AppCompatActivity {
         pt = findViewById(R.id.ipField);
         setIPOfTextView();
         Button b3 = findViewById(R.id.connectButton);
-        Thread listeningThread = new Thread(new ListenForConnection(this));
-        listeningThread.start();
+        //Thread listeningThread = new Thread(new ListenForConnection(this));
+        //listeningThread.start();
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "in Onclicklistener");
                 TextView tv = findViewById(R.id.opponentIpField);
-                Thread sendingThread = new Thread(new SendForConnection(myIp, tv.getText().toString()));
+                Thread sendingThread = new Thread(new SendTCP(tv.getText().toString()));
+                Log.d(TAG, "Thread Created");
                 sendingThread.start();
+            }
+        });
+        Button createButton = findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchWaitingActivity();
             }
         });
     }
@@ -47,6 +63,7 @@ public class PlayActivity extends AppCompatActivity {
     public void launchWaitingActivity() {
         Intent intent = new Intent(ct, WaitingActivity.class);
         intent.putExtra("ipAddress", myIp);
+        Log.d(TAG, myIp);
         startActivity(intent);
     }
 
@@ -105,5 +122,39 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         return ipAddressString;
+    }
+
+    public class SendTCP implements Runnable{
+        private static final String TAG = "SendTCP";
+        private String opIp;
+        private Socket socket;
+        private PrintWriter out;
+        private BufferedReader in;
+
+        public SendTCP(String opIp) {
+            this.opIp = opIp;
+        }
+
+        @Override
+        public void run() {
+            try {
+                this.socket = new Socket(opIp, 4445);
+                String test = "Test! Nachricht!";
+                out = new PrintWriter(this.socket.getOutputStream(),true);
+                out.println(test);
+                Log.d(TAG, "Nachricht versendet");
+                in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+                boolean running = true;
+                String line = null;
+                while (running) {
+                    line = in.readLine();
+                    if (line != null) running = false;
+                }
+                Log.d(TAG, "Nachricht erhalten");
+                Log.d(TAG, line);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

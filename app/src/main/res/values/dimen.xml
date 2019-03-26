@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cell_side_length">32dp</dimen>
+    <dimen name="cells_gap_length">1dp</dimen>
+</resources>
