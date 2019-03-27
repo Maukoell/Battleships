@@ -1,10 +1,30 @@
 package com.mauricio.battleships.model;
 
-public class Cell {
+import java.io.Serializable;
 
-    private statusInts status = statusInts.WATER;
+public class Cell implements Serializable {
 
-    public enum statusInts {
-        WATER, HIT, SHIP
+    private CellStatus status;
+    private int position;
+
+    public Cell(CellStatus status, int position) {
+        this.status = status;
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public CellStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CellStatus status) {
+        this.status = status;
+    }
+
+    public enum CellStatus {
+        WATER, HIT, SHIP, MISSED
     }
 }

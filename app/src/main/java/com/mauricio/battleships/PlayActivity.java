@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.mauricio.battleships.model.Game;
+import com.mauricio.battleships.threads.ClientThread;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,18 +38,18 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        Game g = Game.getInstance();
+        g.setContext(this);
         ct = this;
         pt = findViewById(R.id.ipField);
         setIPOfTextView();
         Button b3 = findViewById(R.id.connectButton);
-        //Thread listeningThread = new Thread(new ListenForConnection(this));
-        //listeningThread.start();
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "in Onclicklistener");
                 TextView tv = findViewById(R.id.opponentIpField);
-                Thread sendingThread = new Thread(new SendTCP(tv.getText().toString()));
+                Thread sendingThread = new Thread(new ClientThread(tv.getText().toString()));
                 Log.d(TAG, "Thread Created");
                 sendingThread.start();
             }
@@ -61,6 +64,7 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void launchWaitingActivity() {
+
         Intent intent = new Intent(ct, WaitingActivity.class);
         intent.putExtra("ipAddress", myIp);
         Log.d(TAG, myIp);
@@ -122,39 +126,5 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         return ipAddressString;
-    }
-
-    public class SendTCP implements Runnable{
-        private static final String TAG = "SendTCP";
-        private String opIp;
-        private Socket socket;
-        private PrintWriter out;
-        private BufferedReader in;
-
-        public SendTCP(String opIp) {
-            this.opIp = opIp;
-        }
-
-        @Override
-        public void run() {
-            try {
-                this.socket = new Socket(opIp, 4445);
-                String test = "Test! Nachricht!";
-                out = new PrintWriter(this.socket.getOutputStream(),true);
-                out.println(test);
-                Log.d(TAG, "Nachricht versendet");
-                in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-                boolean running = true;
-                String line = null;
-                while (running) {
-                    line = in.readLine();
-                    if (line != null) running = false;
-                }
-                Log.d(TAG, "Nachricht erhalten");
-                Log.d(TAG, line);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

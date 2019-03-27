@@ -18,10 +18,22 @@ public class MainActivity extends AppCompatActivity {
                 launchPlayActivity();
             }
         });
+        Button settingsButton = findViewById(R.id.playButton2);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchPlacingActivity();
+            }
+        });
     }
 
     public void launchPlayActivity() {
         Intent intent = new Intent(this, PlayActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchPlacingActivity() {
+        Intent intent = new Intent(this, PlacingActivity.class);
         startActivity(intent);
     }
 }

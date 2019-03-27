@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.mauricio.battleships.model.Game;
+
 public class EndActivity extends AppCompatActivity {
 
     
@@ -32,6 +34,7 @@ public class EndActivity extends AppCompatActivity {
                 launchMainActivity();
             }
         });
+        Game.getInstance().getServerThread().setRunning(false);
     }
 
     public void launchMainActivity() {

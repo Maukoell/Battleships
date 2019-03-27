@@ -6,9 +6,7 @@
     <Button
         android:id="@+id/button_board_cell"
         style="@style/StyleButtonCell"
-        android:background="@drawable/cell_border"
         android:clickable="false"
         android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:textColor="@color/colorWater" />
+        android:focusableInTouchMode="false" />
 </RelativeLayout>

@@ -16,6 +16,16 @@
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
+    <style name="StyleGridViewBoard">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:verticalSpacing">@dimen/cells_gap_length</item>
+        <item name="android:horizontalSpacing">@dimen/cells_gap_length</item>
+        <item name="android:numColumns">10</item>
+        <item name="android:columnWidth">@dimen/cell_side_length</item>
+        <item name="android:stretchMode">none</item>
+    </style>
+
     <style name="StyleButtonCell">
         <item name="android:layout_width">@dimen/cell_side_length</item>
         <item name="android:layout_height">@dimen/cell_side_length</item>

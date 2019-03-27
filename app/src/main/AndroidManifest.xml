@@ -3,7 +3,7 @@
     package="com.mauricio.battleships">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".PlayingActivity"></activity>
         <activity android:name=".PlacingActivity" />
         <activity android:name=".EndActivity" />
         <activity android:name=".WaitingActivity" />
