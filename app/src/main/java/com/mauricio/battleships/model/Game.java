@@ -28,6 +28,10 @@ public class Game {
     private PlayingActivity pa;
     private volatile boolean update = false;
 
+    public void setInstance(Game game) {
+        this.instance = game;
+    }
+
     public boolean isUpdate() {
         return update;
     }

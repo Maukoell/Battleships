@@ -35,6 +35,7 @@ public class EndActivity extends AppCompatActivity {
             }
         });
         Game.getInstance().getServerThread().setRunning(false);
+        Game.getInstance().setInstance(null);
     }
 
     public void launchMainActivity() {

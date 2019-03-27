@@ -1,0 +1,3 @@
+# Battleships
+
+Das Ziel des Projektes ist es, eine vollständig funktionstüchtige Android App zu erstellen, mit welcher, das Spiel “Schiffe versenken” gespielt werden kann. Die Geräte werden mit Hilfe einer Socket Verbindung über TCP verbunden. Da ansonsten ein Gameserver benötigt wird, müssen sich die Spieler im gleichen Netzwerk befinden. Befindet sich der andere Spieler nicht in der App soll eine Notification den Nutzer darüber informieren, dass er zu einem Spiel eingeladen wurde.
