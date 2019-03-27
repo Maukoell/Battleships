@@ -3,6 +3,7 @@ package com.mauricio.battleships.model;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.util.DiffUtil;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.mauricio.battleships.R;
 import com.mauricio.battleships.model.Cell;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterBoard extends ArrayAdapter<Cell> implements Serializable {
@@ -29,6 +31,42 @@ public class AdapterBoard extends ArrayAdapter<Cell> implements Serializable {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public ArrayList<Cell> getItems () {
+        ArrayList<Cell> temp = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            temp.add(this.getItem(i));
+        }
+        return temp;
+    }
+
+    public void onNewDataArrived(int position, Cell cell) {
+        ArrayList<Cell> cells = this.getItems();
+        ArrayList<Cell> cells1 = (ArrayList<Cell>) cells.clone();
+        DiffUtil.DiffResult diff = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return 0;
+            }
+
+            @Override
+            public int getNewListSize() {
+                return 0;
+            }
+
+            @Override
+            public boolean areItemsTheSame(int i, int i1) {
+                return false;
+            }
+
+            @Override
+            public boolean areContentsTheSame(int i, int i1) {
+
+                return false;
+            }
+        });
+        //diff.dispatchUpdatesTo(this);
     }
 
     @Override

@@ -51,12 +51,14 @@ public class PlacingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cell cell = (Cell) parent.getAdapter().getItem(position);
-                cell.setStatus(Cell.CellStatus.SHIP);
-                board.notifyDataSetChanged();
-                counter += 1;
-                Log.d(TAG, "OnItemListener");
-                checkCounter();
-                p1.addCell(cell);
+                if (cell.getStatus() == Cell.CellStatus.WATER) {
+                    cell.setStatus(Cell.CellStatus.SHIP);
+                    board.notifyDataSetChanged();
+                    counter += 1;
+                    Log.d(TAG, "OnItemListener");
+                    checkCounter();
+                    p1.addCell(cell);
+                }
             }
         });
     }
